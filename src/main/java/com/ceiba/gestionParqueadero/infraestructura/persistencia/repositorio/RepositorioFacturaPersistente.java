@@ -13,7 +13,6 @@ import com.ceiba.gestionParqueadero.infraestructura.persistencia.entity.FacturaE
 public class RepositorioFacturaPersistente implements IFactura{
 
 	private EntityManager entityManager;
-	private static final String BUSCA_ACTIVIDAD_POR_ID = "Actividades.byId";
 	
 	public RepositorioFacturaPersistente(EntityManager entityManager){
 		this.entityManager=entityManager;

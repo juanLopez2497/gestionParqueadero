@@ -1,7 +1,5 @@
 package com.ceiba.gestionParqueadero.dominio;
 
-import java.util.Date;
-
 public class ActividadResumen {
 	
 	private String horaEntra;

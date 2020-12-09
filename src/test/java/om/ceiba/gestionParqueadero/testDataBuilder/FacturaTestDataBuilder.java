@@ -5,7 +5,6 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 
 import com.ceiba.gestionParqueadero.aplicacion.comando.ComandoGeneracionFactura;
-import com.ceiba.gestionParqueadero.dominio.FacturaInicializar;
 
 public class FacturaTestDataBuilder {
 	

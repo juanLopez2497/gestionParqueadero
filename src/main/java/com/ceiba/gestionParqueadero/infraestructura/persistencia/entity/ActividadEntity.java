@@ -11,9 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
-import javax.persistence.PrimaryKeyJoinColumn;
 
-import org.hibernate.annotations.Cascade;
 
 @Entity(name ="ACTIVIDADES")
 @NamedQuery(name="Actividades.byEstado" , query="SELECT act FROM ACTIVIDADES act WHERE act.estado='A'")

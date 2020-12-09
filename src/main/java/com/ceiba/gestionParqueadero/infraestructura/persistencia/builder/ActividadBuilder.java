@@ -3,7 +3,6 @@ package com.ceiba.gestionParqueadero.infraestructura.persistencia.builder;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
-import com.ceiba.gestionParqueadero.dominio.Actividad;
 import com.ceiba.gestionParqueadero.dominio.ActividadEjecutar;
 import com.ceiba.gestionParqueadero.dominio.ActividadResumen;
 import com.ceiba.gestionParqueadero.infraestructura.persistencia.entity.ActividadEntity;

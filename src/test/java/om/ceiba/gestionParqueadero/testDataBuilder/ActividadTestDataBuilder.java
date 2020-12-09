@@ -35,7 +35,7 @@ public class ActividadTestDataBuilder {
 	private String tipo;
 	private String placaNuevo;
 	private String anotacionNuevo;
-	private String tipoNuevo;
+
 	
 	public ActividadTestDataBuilder(){
 		this.idActividad=ID_ACTIVIDAD;

@@ -13,11 +13,9 @@ import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.ceiba.gestionParqueadero.dominio.ActividadResumen;
 import com.ceiba.gestionParqueadero.dominio.repositorio.IFactura;
 import com.ceiba.gestionParqueadero.dominio.servicio.factura.ServicioCrearFactura;
 
-import om.ceiba.gestionParqueadero.testDataBuilder.ActividadTestDataBuilder;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest

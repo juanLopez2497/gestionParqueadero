@@ -10,7 +10,6 @@ import javax.persistence.Query;
 
 import org.springframework.stereotype.Repository;
 
-import com.ceiba.gestionParqueadero.dominio.Actividad;
 import com.ceiba.gestionParqueadero.dominio.ActividadEjecutar;
 import com.ceiba.gestionParqueadero.dominio.ActividadResumen;
 import com.ceiba.gestionParqueadero.dominio.excepcion.ActividadNoEncontrada;
