@@ -1,0 +1,29 @@
+package com.ceiba.gestionparqueadero.dominio;
+
+public class FacturaResumen {
+	
+	private Long idAct;
+	
+	private String placa;
+	
+	private double valorPagado;
+	
+	public FacturaResumen(Long idAct, String placa, double valorPagado){
+		this.idAct=idAct;
+		this.placa=placa;
+		this.valorPagado=valorPagado;
+	}
+	
+	public Long getIdAct() {
+		return idAct;
+	}
+
+
+	public String getPlaca() {
+		return placa;
+	}
+
+	public double getValorPagado() {
+		return valorPagado;
+	}
+}
