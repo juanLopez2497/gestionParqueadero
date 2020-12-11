@@ -10,7 +10,7 @@ import com.ceiba.gestionparqueadero.dominio.ActividadResumen;
 import com.ceiba.gestionparqueadero.infraestructura.persistencia.entity.ActividadEntity;
 import com.ceiba.gestionparqueadero.infraestructura.persistencia.entity.RegistroAutomotorEntity;
 
-public class ActividadBuilder {
+public final class ActividadBuilder {
 	
 	private ActividadBuilder(){
 		

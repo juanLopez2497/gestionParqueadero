@@ -3,7 +3,7 @@ package com.ceiba.gestionparqueadero.infraestructura.persistencia.builder;
 import com.ceiba.gestionparqueadero.dominio.RegistroAutomotor;
 import com.ceiba.gestionparqueadero.infraestructura.persistencia.entity.RegistroAutomotorEntity;
 
-public class RegistroAutomotorBuilder {
+public final class RegistroAutomotorBuilder {
 	private RegistroAutomotorBuilder(){
 		
 	}

@@ -68,7 +68,7 @@ public class RepositorioActividadPersistente implements ActividadRepository {
 			query.setParameter("id",id);
 			actividadEntity=(ActividadEntity) query.getSingleResult();
 		} catch (Exception e) {
-			LOG.info(e.getMessage());
+			LOG.info(e);
 			throw new ActividadNoEncontrada(ACTIVIDAD_NO_ENCONTRADA);
 		}
 		return ActividadBuilder.convertirToActividadDTO(actividadEntity);

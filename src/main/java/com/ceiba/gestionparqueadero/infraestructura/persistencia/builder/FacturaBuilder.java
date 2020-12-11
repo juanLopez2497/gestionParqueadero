@@ -3,7 +3,7 @@ package com.ceiba.gestionparqueadero.infraestructura.persistencia.builder;
 import com.ceiba.gestionparqueadero.dominio.FacturaResumen;
 import com.ceiba.gestionparqueadero.infraestructura.persistencia.entity.FacturaEntity;
 
-public class FacturaBuilder {
+public final class FacturaBuilder {
 	
 	private FacturaBuilder(){
 		

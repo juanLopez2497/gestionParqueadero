@@ -53,7 +53,7 @@ public class ActividadEntity {
 	}
 
 	public void setHoraEntra(Date horaEntra) {
-		this.horaEntra = horaEntra;
+		this.horaEntra = horaEntra != null ? new Date(horaEntra.getTime()) : horaEntra;
 	}
 
 	public String getHoraSale() {

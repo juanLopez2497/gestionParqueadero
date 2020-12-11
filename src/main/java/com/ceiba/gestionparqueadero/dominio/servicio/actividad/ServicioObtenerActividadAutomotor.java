@@ -27,7 +27,7 @@ public class ServicioObtenerActividadAutomotor {
 		try{
 			return actividadRepository.listActivas();
 		} catch(Exception e){
-			LOG.info(e.getMessage());
+			LOG.info(e);
 			throw new ParqueaderoVacioException(PARQUEADERO_VACIO);
 		}
 	}
