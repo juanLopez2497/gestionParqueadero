@@ -1,5 +1,6 @@
 package com.ceiba.gestionparqueadero.testDataBuilder;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,19 +9,17 @@ import com.ceiba.gestionparqueadero.dominio.ActividadEjecutar;
 import com.ceiba.gestionparqueadero.dominio.ActividadResumen;
 
 public class ActividadTestDataBuilder {
-	private static final Long ID_ACTIVIDAD=999L;
-
-	private static final String HORA_ENTRA_CADENA="2020-12-08 21:00:00";
 	
+	private static final Long ID_ACTIVIDAD=999L;
+	private static final LocalDateTime HORA_ENTRA_CADENA=LocalDateTime.of(2020, 12, 8, 21, 0, 0);
 	private static final String PLACA="WXZ09C";
 	private static final String ANOTACION="Entra con espejo IZQ roto";
 	private static final String TIPO="M";
-	
 	private static final String PLACA_NUEVO="WXZ08C";
 	private static final String ANOTACION_NUEVO="Entra con espejo derecho roto";
 	
 	private Long idActividad;
-	private String horaEntraCadena;
+	private LocalDateTime horaEntraCadena;
 	private String placa;
 	private String anotacion;
 	private String tipo;

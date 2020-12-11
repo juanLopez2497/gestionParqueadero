@@ -1,9 +1,9 @@
 package com.ceiba.gestionparqueadero.dominio.servicio.factura;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
+import java.time.DayOfWeek;
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
+
 
 import org.springframework.stereotype.Component;
 
@@ -20,6 +20,9 @@ public class ServicioCrearFactura {
 	private static final double TARIFA_HORA_MOTO=1000;
 	private static final double PORCENTAJE_AUMENTO_DESC_10=0.10;
 	private static final double PORCENTAJE_AUMENTO_5=0.05;
+	private static final int MAX_HOUR=23;
+	private static final int MAX_MINUTE=59;
+	private static final int MINUTOS_TO_HORAS=60;
 	
 	private final FacturaRepository facturaRepository;
 	private final ActividadRepository actividadRepository; 
@@ -34,32 +37,22 @@ public class ServicioCrearFactura {
 		double pagoParcial=0;
 		double totalAumentos=0;
 		double totalAPagar=0;
-		
-		SimpleDateFormat dateRestores=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		Date dateEntra = null;
-		try {
-			dateEntra=dateRestores.parse(actividadResumen.getHoraEntra());
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
-		double horasTotalesParqueo=calcularHorasTotalesParqueo(dateEntra, facturaInicializar.getFechaSalida());
-		Long conteoDomingos=contarDomingos(dateEntra, facturaInicializar.getFechaSalida());
+
+		double horasTotalesParqueo=calcularHorasTotalesParqueo(actividadResumen.getHoraEntra(), facturaInicializar.getFechaSalida());
+		Long conteoDomingos=contarDomingos(actividadResumen.getHoraEntra(), facturaInicializar.getFechaSalida());
 		pagoParcial=calcularTarifa( horasTotalesParqueo, actividadResumen.getTipo());
-		if(validarDiaEntraSale(dateEntra, facturaInicializar.getFechaSalida())){
+		
+		if(validarDiaEntraSale(actividadResumen.getHoraEntra(), facturaInicializar.getFechaSalida())){
 				if(isDomingo(facturaInicializar.getFechaSalida())){
 					if(facturaInicializar.getFlagBonoDescuento()!=null && ("A").equals(facturaInicializar.getFlagBonoDescuento())){
 						pagoParcial=(pagoParcial-(pagoParcial*PORCENTAJE_AUMENTO_DESC_10));
 					}else{
-						if(("C").equals(actividadResumen.getTipo())){
-							pagoParcial=(pagoParcial+(pagoParcial*PORCENTAJE_AUMENTO_DESC_10));
-						}else if(("M").equals(actividadResumen.getTipo())){
-							pagoParcial=(pagoParcial+(pagoParcial*PORCENTAJE_AUMENTO_5));
-						}
+						pagoParcial=calcularAumentoEnDomingo(pagoParcial, actividadResumen.getTipo());
 					}
 				}
 		}else{
 			if(conteoDomingos!=0L){
-				totalAumentos=calcularSobreCostoDomingos(dateEntra, facturaInicializar.getFechaSalida(),conteoDomingos,
+				totalAumentos=calcularSobreCostoDomingos(actividadResumen.getHoraEntra(), facturaInicializar.getFechaSalida(),conteoDomingos,
 						actividadResumen.getTipo());
 			}
 		}
@@ -70,22 +63,16 @@ public class ServicioCrearFactura {
 
 			return facturaRepository.crearRegistro(facturaToPersist);
 	}
-	public boolean validarDiaEntraSale(Date fechaEntra, Date fechaSale){
-		Calendar diaEntra=Calendar.getInstance();
-		Calendar diaSale=Calendar.getInstance();
-		
-		diaEntra.setTime(fechaEntra);
-		diaSale.setTime(fechaSale);
-		
-		if(diaEntra.get(Calendar.DAY_OF_YEAR)==diaSale.get(Calendar.DAY_OF_YEAR)){
-			return true;
+	public boolean validarDiaEntraSale(LocalDateTime fechaEntra, LocalDateTime fechaSale){
+		boolean result=false;
+		if(fechaEntra.getDayOfYear()==fechaSale.getDayOfYear()){
+			result= true;
 		}
-		
-		return false;
+		return result;
 	}
-	public double calcularHorasTotalesParqueo(Date fechaEntra, Date fechaSale){
-		double totalTiempoParqueo=fechaSale.getTime()-fechaEntra.getTime();
-		return Math.ceil(totalTiempoParqueo/3600000);
+	public double calcularHorasTotalesParqueo(LocalDateTime fechaEntra, LocalDateTime fechaSale){
+		long minutes = ChronoUnit.MINUTES.between(fechaEntra,fechaSale);
+		return Math.ceil((minutes/(double)MINUTOS_TO_HORAS));
 	}
 	
 	public double calcularTarifa(double horas,String tipo){
@@ -97,72 +84,68 @@ public class ServicioCrearFactura {
 		}
 		return result;
 	}
-	public boolean isDomingo(Date fechaSale){
-		Calendar diaSale=Calendar.getInstance();
-		diaSale.setTime(fechaSale);
-		if(diaSale.get(Calendar.DAY_OF_WEEK)!=Calendar.SUNDAY){
-			return false;
+	public boolean isDomingo(LocalDateTime fechaSale){
+		boolean result=false;
+		if(fechaSale.getDayOfWeek()==DayOfWeek.SUNDAY){
+			result=true;
 		}
-		return true;
+		return result;
 	}
-	public Long contarDomingos(Date fechaEntra, Date fechaSale){
-		Calendar diaEntra=Calendar.getInstance();
-		Calendar diaSale=Calendar.getInstance();
-		
-		diaEntra.setTime(fechaEntra);
-		diaSale.setTime(fechaSale);
+	public Long contarDomingos(LocalDateTime fechaEntra, LocalDateTime fechaSale){
 		
 		Long contadorDomingos=0L;
 				
-		while(diaEntra.get(Calendar.DAY_OF_YEAR)<=diaSale.get(Calendar.DAY_OF_YEAR)){
-			if(diaEntra.get(Calendar.DAY_OF_WEEK)==Calendar.SUNDAY){
+		while(fechaEntra.getDayOfYear()<=fechaSale.getDayOfYear()){
+			if(fechaEntra.getDayOfWeek()==DayOfWeek.SUNDAY){
 				contadorDomingos++;
 			}
-			diaEntra.add(Calendar.DAY_OF_YEAR,1);
+			fechaEntra=fechaEntra.plusDays(1);
 		}
-		
 		return contadorDomingos;
 	}
 	
-	public double calcularSobreCostoDomingos(Date fechaEntra, Date fechaSale, Long countDomingos, String tipo){
-		Calendar diaEntra=Calendar.getInstance();
-		Calendar diaSale=Calendar.getInstance();
-		Calendar diaEntraMax=Calendar.getInstance();
-		Calendar diaSaleMin=Calendar.getInstance();
-		
-		diaEntra.setTime(fechaEntra);
-		diaSale.setTime(fechaSale);
-		diaEntraMax.setTime(fechaEntra);
-		diaSaleMin.setTime(fechaSale);
-		
+	public double calcularSobreCostoDomingos(LocalDateTime fechaEntra, LocalDateTime fechaSale, Long countDomingos, String tipo){
+
+		LocalDateTime diaEntraMax=fechaEntra;
+		LocalDateTime diaSaleMin=fechaSale;
+	
 		double tiempoExtraFirst=0;
 		double tiempoExtraLast=0;
 		double tiempoMiddle=0;
 		
 		double sobreCosto=0;
 		
-		if(diaEntra.get(Calendar.DAY_OF_WEEK)==Calendar.SUNDAY){
-			diaEntraMax.set(Calendar.HOUR_OF_DAY, 24);
-			diaEntraMax.set(Calendar.MINUTE, 00);
-			tiempoExtraFirst=Math.ceil(((diaEntraMax.getTime()).getTime()-(diaEntra.getTime()).getTime())/3600000);
+		if(fechaEntra.getDayOfWeek()==DayOfWeek.SUNDAY){
+			diaEntraMax=diaEntraMax.withHour(MAX_HOUR);
+			diaEntraMax=diaEntraMax.withMinute(MAX_MINUTE);
+			tiempoExtraFirst=Math.ceil((ChronoUnit.MINUTES.between(fechaEntra, diaEntraMax)/(double)MINUTOS_TO_HORAS));
 			countDomingos--;
 		}
-		if(diaSale.get(Calendar.DAY_OF_WEEK)==Calendar.SUNDAY){
-			diaSaleMin.set(Calendar.HOUR_OF_DAY, 00);
-			diaSaleMin.set(Calendar.MINUTE, 00);
-			tiempoExtraLast=Math.ceil(((diaSale.getTime()).getTime()-(diaSaleMin.getTime()).getTime())/3600000);
+		if(fechaSale.getDayOfWeek()==DayOfWeek.SUNDAY){
+			diaSaleMin=diaSaleMin.withHour(0);
+			diaSaleMin=diaSaleMin.withMinute(0);
+			tiempoExtraLast=Math.ceil(ChronoUnit.MINUTES.between(diaSaleMin,fechaSale)/(double)MINUTOS_TO_HORAS);
 			countDomingos--;
 		}
 		if(countDomingos!=0){
-			tiempoMiddle=24*countDomingos;
+			tiempoMiddle=(24*(double)countDomingos);
 		}
 		sobreCosto=(tiempoExtraFirst+tiempoMiddle+tiempoExtraLast);
 		
 		if("C".equals(tipo)){
-			sobreCosto=((tiempoExtraFirst+tiempoMiddle+tiempoExtraLast)*TARIFA_HORA_CARRO)*PORCENTAJE_AUMENTO_DESC_10;
+			sobreCosto=((sobreCosto)*TARIFA_HORA_CARRO)*PORCENTAJE_AUMENTO_DESC_10;
 		}else if("M".equals(tipo)){
-			sobreCosto=((tiempoExtraFirst+tiempoMiddle+tiempoExtraLast)*TARIFA_HORA_MOTO)*PORCENTAJE_AUMENTO_5;
+			sobreCosto=((sobreCosto)*TARIFA_HORA_MOTO)*PORCENTAJE_AUMENTO_5;
 		}
 		return sobreCosto;
+	}
+	
+	public double calcularAumentoEnDomingo(double pagoParcial, String tipo){
+		if(("C").equals(tipo)){
+			pagoParcial=(pagoParcial+(pagoParcial*PORCENTAJE_AUMENTO_DESC_10));
+		}else if(("M").equals(tipo)){
+			pagoParcial=(pagoParcial+(pagoParcial*PORCENTAJE_AUMENTO_5));
+		}
+		return pagoParcial;
 	}
 }

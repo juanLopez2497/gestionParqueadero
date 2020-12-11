@@ -12,7 +12,7 @@ public class RegistroAutomotorBuilder {
 		RegistroAutomotorEntity regAutEntity=new RegistroAutomotorEntity();
 		
 		regAutEntity.setAnotacion(registroAutomotor.getAnotacion());
-		regAutEntity.setPlaca(registroAutomotor.getPlaca());;
+		regAutEntity.setPlaca(registroAutomotor.getPlaca());
 		regAutEntity.setTipo(registroAutomotor.getTipo());
 		return regAutEntity;
 	}

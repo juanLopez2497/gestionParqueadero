@@ -8,9 +8,9 @@ import com.ceiba.gestionparqueadero.dominio.FacturaInicializar;
 @Component
 public class FabricaGeneracionFactura {
 	
-	public FacturaInicializar recibirFacturaInicializar(ComandoGeneracionFactura ComandoGeneracionFactura){
-		return new FacturaInicializar(ComandoGeneracionFactura.getId(),
-				ComandoGeneracionFactura.getPlaca(), ComandoGeneracionFactura.getFlagBonoDescuento());
+	public FacturaInicializar recibirFacturaInicializar(ComandoGeneracionFactura comandoGeneracionFactura){
+		return new FacturaInicializar(comandoGeneracionFactura.getId(),
+				comandoGeneracionFactura.getPlaca(), comandoGeneracionFactura.getFlagBonoDescuento());
 	}
 	
 }

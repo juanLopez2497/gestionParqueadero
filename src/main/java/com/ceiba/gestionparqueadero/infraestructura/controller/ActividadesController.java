@@ -40,7 +40,7 @@ public class ActividadesController {
 		return manejadorCrearActParqueo.crearActividadParqueo(comandoRegistroParqueo);
 	}
 	@PostMapping("/generarFactura")
-	public FacturaResumen GenerarFactura(@RequestBody ComandoGeneracionFactura comandoGeneracionFactura){
+	public FacturaResumen generarFactura(@RequestBody ComandoGeneracionFactura comandoGeneracionFactura){
 		return manejadorCrearFactura.crearFactura(comandoGeneracionFactura);
 	}
 	

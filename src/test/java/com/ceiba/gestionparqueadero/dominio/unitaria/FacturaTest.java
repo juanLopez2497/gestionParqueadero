@@ -2,10 +2,7 @@ package com.ceiba.gestionparqueadero.dominio.unitaria;
 
 import static org.junit.Assert.*;
 
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
-
+import java.time.LocalDateTime;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -18,17 +15,13 @@ import com.ceiba.gestionparqueadero.dominio.servicio.factura.ServicioCrearFactur
 
 
 @RunWith(SpringRunner.class)
-@SpringBootTest
 public class FacturaTest {
 	
-	private static final Date HORA_ENTRA=new GregorianCalendar(2020, Calendar.DECEMBER, 
-			6, 10, 25, 00).getTime();
-	private static final Date HORA_SALE=new GregorianCalendar(2020, Calendar.DECEMBER, 
-			6, 11, 40, 00).getTime();
-	private static final Date HORA_SALE_DIFERENTE=new GregorianCalendar(2020, Calendar.DECEMBER, 
-			7, 11, 40, 00).getTime();
-	private static final Date ES_DOMINGO=new GregorianCalendar(2020, Calendar.DECEMBER, 
-			6, 11, 40, 00).getTime();
+	private static final LocalDateTime HORA_ENTRA=LocalDateTime.of(2020, 12, 6, 10, 25, 0);
+	private static final LocalDateTime HORA_SALE=LocalDateTime.of(2020, 12, 6, 11, 40, 0);
+	private static final LocalDateTime HORA_SALE_DIFERENTE=LocalDateTime.of(2020, 12, 7, 11, 40, 0);
+	private static final LocalDateTime ES_DOMINGO=LocalDateTime.of(2020, 12, 6, 11, 40, 0);
+
 	private static final int TOTAL_HORAS_PARQUEO=2;
 	
 	
@@ -57,7 +50,7 @@ public class FacturaTest {
 	public void CalcularHorasTotalesParqueo(){
 		
 		int horasParqueo=(int) servicioCrearFactura.calcularHorasTotalesParqueo(HORA_ENTRA, HORA_SALE);
-		assertEquals(horasParqueo, TOTAL_HORAS_PARQUEO);
+		assertEquals(TOTAL_HORAS_PARQUEO, horasParqueo);
 	}
 	
 	@Test
@@ -85,11 +78,11 @@ public class FacturaTest {
 	@Test
 	public void contarDomingos(){
 		long result=servicioCrearFactura.contarDomingos(HORA_ENTRA, HORA_SALE_DIFERENTE);
-		assertEquals(result,1L);
+		assertEquals(1L,result);
 	}
 	@Test
 	public void calcularSobreCostoDomingos(){
-		double SobreCostoPrecalculado=650;
+		double SobreCostoPrecalculado=700;
 		double sobreCostoDomingo=servicioCrearFactura.calcularSobreCostoDomingos(HORA_ENTRA, HORA_SALE_DIFERENTE, 1L, "M");
 		assertEquals(sobreCostoDomingo, SobreCostoPrecalculado, 0);
 	}

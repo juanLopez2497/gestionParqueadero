@@ -1,6 +1,6 @@
 package com.ceiba.gestionparqueadero;
 
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 
 
 public class GestionParqueaderoApplicationTests {

@@ -19,7 +19,6 @@ import static org.junit.Assert.*;
 import static org.mockito.Mockito.when;
 
 @RunWith(SpringRunner.class)
-//@SpringBootTes
 public class ActividadTest {
 	@InjectMocks
 	ServicioCrearActividadParqueo servicioCrearActividadParqueo;
@@ -46,7 +45,7 @@ public class ActividadTest {
 		when(actividadRepository.agregar(actividadEjecutar)).thenReturn(actividad);
 		
 		ActividadResumen actividadReturned=servicioCrearActividadParqueo.crearActividadParqueo(actividadEjecutar);
-		assertTrue(actividadReturned.getPlaca().equals(actividad.getPlaca()));
+		assertEquals(actividadReturned.getPlaca(),actividad.getPlaca());
 	}
 
 }

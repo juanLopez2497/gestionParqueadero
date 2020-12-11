@@ -1,7 +1,9 @@
 package com.ceiba.gestionparqueadero.infraestructura.persistencia.builder;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.Date;
 
 import com.ceiba.gestionparqueadero.dominio.ActividadEjecutar;
 import com.ceiba.gestionparqueadero.dominio.ActividadResumen;
@@ -15,10 +17,7 @@ public class ActividadBuilder {
 	}
 	
 	public static ActividadResumen convertirToActividadDTO(ActividadEntity actividadEntity){
-		
-		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		String fechaCast=dateFormat.format(actividadEntity.getHoraEntra());
-		return new ActividadResumen(fechaCast, actividadEntity.getRegistroAutomotorEntity().getPlaca(),
+		return new ActividadResumen(convertDateToLocal(actividadEntity.getHoraEntra()), actividadEntity.getRegistroAutomotorEntity().getPlaca(),
 				actividadEntity.getRegistroAutomotorEntity().getAnotacion(), actividadEntity.getRegistroAutomotorEntity().getTipo(),
 				actividadEntity.getId());
 	}
@@ -32,9 +31,22 @@ public class ActividadBuilder {
 		regAutomotor.setTipo(actividadEjecutar.getTipo());
 		
 		actividadEntity.setEstado("A");
-		actividadEntity.setHoraEntra(actividadEjecutar.getFechaEntra());
+		actividadEntity.setHoraEntra(convertLocalToDate(actividadEjecutar.getFechaEntra()));
 		actividadEntity.setRegistroAutomotorEntity(regAutomotor);
 		
 		return actividadEntity;
+	}
+	public static Date convertLocalToDate(LocalDateTime toDate){
+		if(toDate!=null){
+			return Date.from(toDate.atZone(ZoneId.systemDefault()).toInstant());
+		}
+		return null;
+	}
+	
+	public static  LocalDateTime convertDateToLocal(Date toLocal){
+		if(toLocal!=null){
+			return Instant.ofEpochMilli(toLocal.getTime()).atZone(ZoneId.systemDefault()).toLocalDateTime();
+		}
+		return null;
 	}
 }

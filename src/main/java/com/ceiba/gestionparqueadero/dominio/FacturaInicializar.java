@@ -1,15 +1,15 @@
 package com.ceiba.gestionparqueadero.dominio;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 public class FacturaInicializar {
 	private Long id;
 	private String placa;
 	private String flagBonoDescuento;
-	private Date fechaSalida;
+	private LocalDateTime fechaSalida;
 	
 	public FacturaInicializar(Long id, String placa, String flagBonoDescuento){
-		this.fechaSalida=new Date();
+		this.fechaSalida = LocalDateTime.now();
 		this.id=id;
 		this.placa=placa;
 		this.flagBonoDescuento=flagBonoDescuento;
@@ -24,8 +24,7 @@ public class FacturaInicializar {
 	public String getFlagBonoDescuento() {
 		return flagBonoDescuento;
 	}
-
-	public Date getFechaSalida() {
+	public LocalDateTime getFechaSalida() {
 		return fechaSalida;
-	}
+	}	
 }

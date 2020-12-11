@@ -1,13 +1,13 @@
 package com.ceiba.gestionparqueadero.infraestructura.persistencia.repositorio;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Repository;
 
 import com.ceiba.gestionparqueadero.dominio.ActividadEjecutar;
@@ -20,8 +20,9 @@ import com.ceiba.gestionparqueadero.infraestructura.persistencia.entity.Activida
 @Repository
 public class RepositorioActividadPersistente implements ActividadRepository {
 	
-	private static final String ACTIVIDAD_NO_ENCONTRADA="id de Actividad no encontrado";
+	private static final Logger LOG=LogManager.getLogger(RepositorioActividadPersistente.class);
 	
+	private static final String ACTIVIDAD_NO_ENCONTRADA="id de Actividad no encontrado";
 	private static final String BUSCA_REGISTROS_ACTIVOS = "Actividades.byEstado";
 	private static final String BUSCA_ACTIVIDAD_POR_ID = "Actividades.byId";
 	
@@ -38,10 +39,9 @@ public class RepositorioActividadPersistente implements ActividadRepository {
 		
 		entityManager.persist(actividadEntity);
 		entityManager.flush();
-		DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
-		String fechaCast=dateFormat.format(actividadEntity.getHoraEntra());
+		LocalDateTime dataConvert=ActividadBuilder.convertDateToLocal(actividadEntity.getHoraEntra());
 		
-		return new ActividadResumen(fechaCast, actividadEntity.getRegistroAutomotorEntity().getPlaca(),
+		return new ActividadResumen(dataConvert, actividadEntity.getRegistroAutomotorEntity().getPlaca(),
 				actividadEntity.getRegistroAutomotorEntity().getAnotacion(), actividadEntity.getRegistroAutomotorEntity().getTipo(),
 				actividadEntity.getId());	
 	}
@@ -68,9 +68,12 @@ public class RepositorioActividadPersistente implements ActividadRepository {
 			query.setParameter("id",id);
 			actividadEntity=(ActividadEntity) query.getSingleResult();
 		} catch (Exception e) {
+			LOG.info(e.getMessage());
 			throw new ActividadNoEncontrada(ACTIVIDAD_NO_ENCONTRADA);
 		}
 		return ActividadBuilder.convertirToActividadDTO(actividadEntity);
 	}
+	
+
 
 }
