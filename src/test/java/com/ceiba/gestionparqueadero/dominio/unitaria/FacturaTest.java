@@ -83,9 +83,27 @@ public class FacturaTest {
 		assertEquals(1L,result);
 	}
 	@Test
-	public void calcularSobreCostoDomingos(){
+	public void calcularSobreCostoDomingosMotos(){
 		double SobreCostoPrecalculado=700;
 		double sobreCostoDomingo=servicioCrearFactura.calcularSobreCostoDomingos(HORA_ENTRA, HORA_SALE_DIFERENTE, 1L, "M");
 		assertEquals(sobreCostoDomingo, SobreCostoPrecalculado, 0);
+	}
+	@Test
+	public void calcularSobreCostoDomingosCarros(){
+		double SobreCostoPrecalculado=400;
+		double sobreCostoDomingo=servicioCrearFactura.calcularSobreCostoDomingos(HORA_ENTRA, HORA_SALE, 1L, "C");
+		assertEquals(SobreCostoPrecalculado, sobreCostoDomingo, 0);
+	}
+	@Test
+	public void calcularAumentoEnDomingoMoto(){
+		double expected=1050;
+		double result=servicioCrearFactura.calcularAumentoEnDomingo(1000, "M");
+		assertEquals(expected, result, 0);
+	}
+	@Test
+	public void calcularAumentoEnDomingoCarro(){
+		double expected=2200;
+		double result=servicioCrearFactura.calcularAumentoEnDomingo(2000, "C");
+		assertEquals(expected, result, 0);
 	}
 }
