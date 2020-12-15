@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import com.ceiba.gestionparqueadero.dominio.excepcion.ActividadNoEncontrada;
 import com.ceiba.gestionparqueadero.dominio.excepcion.ParqueaderoLlenoException;
-import com.ceiba.gestionparqueadero.dominio.excepcion.ParqueaderoVacioException;
 
 @ControllerAdvice
 public class ManejadorExcepciones {
@@ -18,7 +17,6 @@ public class ManejadorExcepciones {
 	private static final ConcurrentHashMap<String, Integer> CODIGOS_ESTADO= new ConcurrentHashMap<>();
 	
 	public ManejadorExcepciones(){
-		CODIGOS_ESTADO.put(ParqueaderoVacioException.class.getSimpleName(), HttpStatus.BAD_REQUEST.value());
 		CODIGOS_ESTADO.put(ParqueaderoLlenoException.class.getSimpleName(), HttpStatus.BAD_REQUEST.value());
 		CODIGOS_ESTADO.put(ActividadNoEncontrada.class.getSimpleName(), HttpStatus.BAD_REQUEST.value());
 	}

@@ -51,6 +51,7 @@ public class RepositorioActividadPersistente implements ActividadRepository {
 		List<ActividadResumen> listActividadDTO= new ArrayList<>();
 		Query queryListActividadesAct=entityManager.createNamedQuery(BUSCA_REGISTROS_ACTIVOS);
 		
+		@SuppressWarnings("unchecked")
 		List<ActividadEntity> listActActivas=queryListActividadesAct.getResultList();
 		for (ActividadEntity actividadEntity : listActActivas) {
 			listActividadDTO.add(ActividadBuilder.convertirToActividadDTO(actividadEntity));

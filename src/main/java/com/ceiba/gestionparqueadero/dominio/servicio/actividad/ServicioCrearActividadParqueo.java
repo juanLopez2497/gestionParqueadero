@@ -30,7 +30,6 @@ public class ServicioCrearActividadParqueo {
 		}else{
 			throw new ParqueaderoLlenoException(PARQUEADERO_LLENO_MSG);
 		}
-		
 	}
 	
 }

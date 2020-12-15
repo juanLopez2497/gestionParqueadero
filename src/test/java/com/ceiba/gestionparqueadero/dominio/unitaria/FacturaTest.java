@@ -7,11 +7,12 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import com.ceiba.gestionparqueadero.dominio.repositorio.ActividadRepository;
 import com.ceiba.gestionparqueadero.dominio.repositorio.FacturaRepository;
 import com.ceiba.gestionparqueadero.dominio.servicio.factura.ServicioCrearFactura;
+
 
 
 @RunWith(SpringRunner.class)
@@ -24,11 +25,12 @@ public class FacturaTest {
 
 	private static final int TOTAL_HORAS_PARQUEO=2;
 	
-	
 	@InjectMocks
 	ServicioCrearFactura servicioCrearFactura;
 	@Mock
 	FacturaRepository facturaRepository;
+	@Mock
+	ActividadRepository actividadRepository;
 	
 	@Test
 	public void validarDiaEntraSale(){

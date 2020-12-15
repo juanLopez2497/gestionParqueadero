@@ -14,6 +14,12 @@ public class FacturaInicializar {
 		this.placa=placa;
 		this.flagBonoDescuento=flagBonoDescuento;
 	}
+	public FacturaInicializar(Long id, String placa, String flagBonoDescuento, LocalDateTime fechaSalida){
+		this.fechaSalida = fechaSalida;
+		this.id=id;
+		this.placa=placa;
+		this.flagBonoDescuento=flagBonoDescuento;
+	}
 
 	public Long getId() {
 		return id;

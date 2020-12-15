@@ -49,7 +49,11 @@ public class ActividadEntity {
 	
 
 	public Date getHoraEntra() {
-		return horaEntra;
+		if (this.horaEntra != null) {
+	        return new Date(this.horaEntra.getTime());
+	    } else {
+	        return null;
+	    }
 	}
 
 	public void setHoraEntra(Date horaEntra) {

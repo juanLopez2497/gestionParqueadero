@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 import com.ceiba.gestionparqueadero.dominio.FacturaResumen;
 import com.ceiba.gestionparqueadero.dominio.repositorio.FacturaRepository;
 import com.ceiba.gestionparqueadero.infraestructura.persistencia.builder.FacturaBuilder;
+import com.ceiba.gestionparqueadero.infraestructura.persistencia.entity.ActividadEntity;
 import com.ceiba.gestionparqueadero.infraestructura.persistencia.entity.FacturaEntity;
 
 @Repository
@@ -23,9 +24,16 @@ public class RepositorioFacturaPersistente implements FacturaRepository{
 		
 		FacturaEntity facturaEntity=FacturaBuilder.convertirToFacturaEntity(facturaPersist);
 		entityManager.persist(facturaEntity);
-		entityManager.flush();	
+		entityManager.flush();
+		actualizaActividadPagada(facturaEntity.getIdActividadEntity());
 		
 		return new FacturaResumen(facturaEntity.getIdActividadEntity(), facturaPersist.getPlaca(),facturaEntity.getValorPagado());
+	}
+	
+	public void actualizaActividadPagada(Long id){
+		ActividadEntity actividadToUpdate= entityManager.find(ActividadEntity.class, id);
+		actividadToUpdate.setEstado("I");
+		entityManager.merge(actividadToUpdate);
 	}
 	
 }
