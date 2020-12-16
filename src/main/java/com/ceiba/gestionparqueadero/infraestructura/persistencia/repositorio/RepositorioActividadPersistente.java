@@ -43,13 +43,14 @@ public class RepositorioActividadPersistente implements ActividadRepository {
 		
 		return new ActividadResumen(dataConvert, actividadEntity.getRegistroAutomotorEntity().getPlaca(),
 				actividadEntity.getRegistroAutomotorEntity().getAnotacion(), actividadEntity.getRegistroAutomotorEntity().getTipo(),
-				actividadEntity.getId());	
+				actividadEntity.getId(), actividadEntity.getBono());	
 	}
 
 	@Override
 	public List<ActividadResumen> listActivas() {
 		List<ActividadResumen> listActividadDTO= new ArrayList<>();
 		Query queryListActividadesAct=entityManager.createNamedQuery(BUSCA_REGISTROS_ACTIVOS);
+		
 		
 		@SuppressWarnings("unchecked")
 		List<ActividadEntity> listActActivas=queryListActividadesAct.getResultList();

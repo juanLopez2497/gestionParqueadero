@@ -1,5 +1,7 @@
 package com.ceiba.gestionparqueadero.infraestuctura;
 
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,17 +12,14 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
-import com.ceiba.gestionparqueadero.aplicacion.comando.ComandoRegistroParqueo;
-import com.ceiba.gestionparqueadero.testDataBuilder.ActividadTestDataBuilder;
+import com.ceiba.gestionparqueadero.aplicacion.comando.ComandoGeneracionFactura;
+import com.ceiba.gestionparqueadero.testDataBuilder.FacturaTestDataBuilder;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringRunner.class)
 @AutoConfigureMockMvc
 @SpringBootTest
-public class ControladorActividadParqueaderoTest {
-
+public class ControladorFacturaTest {
 	@Autowired
     private MockMvc mvc;
 
@@ -28,22 +27,23 @@ public class ControladorActividadParqueaderoTest {
     private ObjectMapper objectMapper;
     
     @Test
-    public void crearActividad() throws Exception{
-    	ComandoRegistroParqueo ComandoRegistroParqueo=new ActividadTestDataBuilder().creaActividad();
+    public void crearFactura() throws Exception{
+    	ComandoGeneracionFactura coomandoInicializaFactura=new FacturaTestDataBuilder().inicializaFactura();
     	mvc.perform( MockMvcRequestBuilders
-                .post("/actividades/actividadPersistente")
-                .content(objectMapper.writeValueAsString(ComandoRegistroParqueo))
+                .post("/factura/generarFactura")
+                .content(objectMapper.writeValueAsString(coomandoInicializaFactura))
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
     }
-    
     @Test
-    public void getListActividades() throws Exception{
+    public void crearFacturaFail() throws Exception{
+    	ComandoGeneracionFactura comandoInicializaFacturaFail=new FacturaTestDataBuilder().inicializaFacturaFail();
     	mvc.perform( MockMvcRequestBuilders
-                .get("/actividades/listaActivas")
+                .post("/factura/generarFactura")
+                .content(objectMapper.writeValueAsString(comandoInicializaFacturaFail))
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk());
+                .andExpect(status().isBadRequest());
     }
 }

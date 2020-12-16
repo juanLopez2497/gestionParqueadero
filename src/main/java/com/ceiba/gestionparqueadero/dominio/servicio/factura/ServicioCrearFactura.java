@@ -44,7 +44,7 @@ public class ServicioCrearFactura {
 		
 		if(validarDiaEntraSale(actividadResumen.getHoraEntra(), facturaInicializar.getFechaSalida())){
 				if(isDomingo(facturaInicializar.getFechaSalida())){
-					if(facturaInicializar.getFlagBonoDescuento()!=null && ("A").equals(facturaInicializar.getFlagBonoDescuento())){
+					if(actividadResumen.getBono()!=null && ("SI").equals(actividadResumen.getBono())){
 						pagoParcial=(pagoParcial-(pagoParcial*PORCENTAJE_AUMENTO_DESC_10));
 					}else{
 						pagoParcial=calcularAumentoEnDomingo(pagoParcial, actividadResumen.getTipo());

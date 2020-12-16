@@ -20,6 +20,7 @@ public class ActividadTestDataBuilder {
 	private static final String TIPO="M";
 	private static final String PLACA_NUEVO="WXZ08C";
 	private static final String ANOTACION_NUEVO="Entra con espejo roto";
+	private static final String BONO="NO";
 	
 	private Long idActividad;
 	private Long idActividadDom;
@@ -31,7 +32,7 @@ public class ActividadTestDataBuilder {
 	private String placaNuevo;
 	private String placaDom;
 	private String anotacionNuevo;
-
+	private String bono;
 	
 	public ActividadTestDataBuilder(){
 		this.idActividad=ID_ACTIVIDAD;
@@ -47,29 +48,30 @@ public class ActividadTestDataBuilder {
 		this.horaEntraDomingo=DATA_TIME_ENTRA_DOMINGO;
 		this.placaDom=PLACA_DOMINGO;
 		this.idActividadDom=ID_ACTIVIDAD_DOM;
+		this.bono=BONO;
 	}
 	
 	public List<ActividadResumen> listActividadesAutomotorActivas(){
 		List<ActividadResumen> lisActResumen = new ArrayList<>();
-		ActividadResumen actividad=new ActividadResumen(this.horaEntraCadena, this.placa, this.anotacion, this.tipo, this.idActividad);
+		ActividadResumen actividad=new ActividadResumen(this.horaEntraCadena, this.placa, this.anotacion, this.tipo, this.idActividad,this.bono);
 		lisActResumen.add(actividad);
 		return lisActResumen;
 	}
 	
 	public ActividadResumen actividadCreada(){
-		ActividadResumen actividad=new ActividadResumen(this.horaEntraCadena, this.placa, this.anotacion, this.tipo, this.idActividad);
+		ActividadResumen actividad=new ActividadResumen(this.horaEntraCadena, this.placa, this.anotacion, this.tipo, this.idActividad,this.bono);
 		return actividad;
 	}
 	
 	public ActividadEjecutar generaActividadEjecutar(){
-		ActividadEjecutar actividadEjecutar=new ActividadEjecutar(this.placa, this.anotacion, this.tipo);
+		ActividadEjecutar actividadEjecutar=new ActividadEjecutar(this.placa, this.anotacion, this.tipo,this.bono);
 		return actividadEjecutar;
 	}
 	public ComandoRegistroParqueo creaActividad(){
-		return new ComandoRegistroParqueo(placaNuevo, anotacionNuevo, tipo);
+		return new ComandoRegistroParqueo(placaNuevo, anotacionNuevo, tipo,this.bono);
 	}
 	public ActividadResumen actividadCreadaInDomingo(){
-		ActividadResumen actividad=new ActividadResumen(this.horaEntraDomingo, this.placaDom, this.anotacionNuevo, this.tipo, this.idActividadDom);
+		ActividadResumen actividad=new ActividadResumen(this.horaEntraDomingo, this.placaDom, this.anotacionNuevo, this.tipo, this.idActividadDom,this.bono);
 		return actividad;
 	}
 

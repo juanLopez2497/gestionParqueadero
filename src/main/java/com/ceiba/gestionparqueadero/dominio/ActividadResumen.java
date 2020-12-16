@@ -14,12 +14,16 @@ public class ActividadResumen {
 	
 	private Long idActRegistro;
 	
-	public ActividadResumen(LocalDateTime horaEntra, String placa, String anotacion, String tipo, Long idActRegistro) {
+	private String bono;
+	
+	public ActividadResumen(LocalDateTime horaEntra, String placa, String anotacion, String tipo, 
+			Long idActRegistro, String bono) {
 		this.horaEntra=horaEntra;
 		this.placa=placa;
 		this.anotacion=anotacion;
 		this.tipo=tipo;
 		this.idActRegistro=idActRegistro;
+		this.bono=bono;
 	}
 	
 	public LocalDateTime getHoraEntra() {
@@ -37,4 +41,7 @@ public class ActividadResumen {
 	public Long getIdActRegistro() {
 		return idActRegistro;
 	}
+	public String getBono() {
+		return bono;
+	}	
 }

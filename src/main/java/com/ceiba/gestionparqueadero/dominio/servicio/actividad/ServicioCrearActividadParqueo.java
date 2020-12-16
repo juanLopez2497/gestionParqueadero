@@ -14,7 +14,7 @@ public class ServicioCrearActividadParqueo {
 	
 	private final ActividadRepository actividadRepository;
 	
-	private static final int MAXIMO_CUPOS_PLAZAS_PARQUEO=5;
+	private static final int MAXIMO_CUPOS_PLAZAS_PARQUEO=1000;
 	private static final String PARQUEADERO_LLENO_MSG="Parqueadero sin cupos disponibles, Gracias por prefereirnos, vualva más tarde";
 	
 	

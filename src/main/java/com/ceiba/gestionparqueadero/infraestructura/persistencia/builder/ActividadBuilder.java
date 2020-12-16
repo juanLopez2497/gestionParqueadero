@@ -19,7 +19,7 @@ public final class ActividadBuilder {
 	public static ActividadResumen convertirToActividadDTO(ActividadEntity actividadEntity){
 		return new ActividadResumen(convertDateToLocal(actividadEntity.getHoraEntra()), actividadEntity.getRegistroAutomotorEntity().getPlaca(),
 				actividadEntity.getRegistroAutomotorEntity().getAnotacion(), actividadEntity.getRegistroAutomotorEntity().getTipo(),
-				actividadEntity.getId());
+				actividadEntity.getId(), actividadEntity.getBono());
 	}
 	
 	public static ActividadEntity convActividadEjecutarToEntity(ActividadEjecutar actividadEjecutar){
@@ -33,6 +33,7 @@ public final class ActividadBuilder {
 		actividadEntity.setEstado("A");
 		actividadEntity.setHoraEntra(convertLocalToDate(actividadEjecutar.getFechaEntra()));
 		actividadEntity.setRegistroAutomotorEntity(regAutomotor);
+		actividadEntity.setBono(actividadEjecutar.getBono());
 		
 		return actividadEntity;
 	}

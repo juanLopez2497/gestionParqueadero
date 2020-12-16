@@ -10,6 +10,6 @@ public class FabricaAcividadParqueadero {
 	
 	public ActividadEjecutar crearActividadEjecutar(ComandoRegistroParqueo comandoRegistroParqueo){
 		return new ActividadEjecutar(comandoRegistroParqueo.getPlaca(), comandoRegistroParqueo.getAnotacion(),
-				comandoRegistroParqueo.getTipo());
+				comandoRegistroParqueo.getTipo(), comandoRegistroParqueo.getBono());
 	}
 }

@@ -38,6 +38,9 @@ public class ActividadEntity {
 	
 	@Column(name = "ESTADO")
 	private String estado;
+	
+	@Column(name = "BONO")
+	private String bono;
 
 	public Long getId() {
 		return id;
@@ -81,6 +84,14 @@ public class ActividadEntity {
 
 	public void setEstado(String estado) {
 		this.estado = estado;
+	}
+	
+	public String getBono() {
+		return bono;
+	}
+
+	public void setBono(String bono) {
+		this.bono = bono;
 	}
 
 	@Override
