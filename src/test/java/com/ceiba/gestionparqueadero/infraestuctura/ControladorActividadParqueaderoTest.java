@@ -39,6 +39,17 @@ public class ControladorActividadParqueaderoTest {
     }
     
     @Test
+    public void crearActividadFail() throws Exception{
+    	ComandoRegistroParqueo ComandoRegistroParqueo=new ActividadTestDataBuilder().creaActividadFail();
+    	mvc.perform( MockMvcRequestBuilders
+                .post("/actividades/actividadPersistente")
+                .content(objectMapper.writeValueAsString(ComandoRegistroParqueo))
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isBadRequest());
+    }
+    
+    @Test
     public void getListActividades() throws Exception{
     	mvc.perform( MockMvcRequestBuilders
                 .get("/actividades/listaActivas")

@@ -74,5 +74,7 @@ public class ActividadTestDataBuilder {
 		ActividadResumen actividad=new ActividadResumen(this.horaEntraDomingo, this.placaDom, this.anotacionNuevo, this.tipo, this.idActividadDom,this.bono);
 		return actividad;
 	}
-
+	public ComandoRegistroParqueo creaActividadFail(){
+		return new ComandoRegistroParqueo(null, anotacionNuevo, tipo,this.bono);
+	}
 }

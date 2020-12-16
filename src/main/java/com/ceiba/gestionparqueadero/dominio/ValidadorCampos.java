@@ -2,7 +2,7 @@ package com.ceiba.gestionparqueadero.dominio;
 
 import com.ceiba.gestionparqueadero.dominio.excepcion.CampoRequeridoException;
 
-public class ValidadorCampos {
+public final class ValidadorCampos {
 	
 	private ValidadorCampos(){		
 	}
