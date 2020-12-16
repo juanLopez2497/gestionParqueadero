@@ -3,10 +3,12 @@ package com.ceiba.gestionparqueadero.dominio;
 import java.time.LocalDateTime;
 
 public class FacturaInicializar {
+	private static final String ID_ACT_OBLIGATORIO = "error, el id es obligatorio.";
 	private Long id;
 	private LocalDateTime fechaSalida;
 	
 	public FacturaInicializar(Long id){
+		ValidadorCampos.validarNonNull(id, ID_ACT_OBLIGATORIO);
 		this.fechaSalida = LocalDateTime.now();
 		this.id=id;
 	}

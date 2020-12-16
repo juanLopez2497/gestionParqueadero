@@ -3,6 +3,11 @@ package com.ceiba.gestionparqueadero.dominio;
 import java.time.LocalDateTime;
 
 public class ActividadEjecutar {
+	
+	private static final String PLACA_OBLIGATORIO = "error, la placa obligatoria.";
+	private static final String TPO_OBLIGATORIO = "error, el tipo es obligatorio.";
+	private static final String BONO_OBLIGATORIO = "error, pregunta de bono obligatoria.";
+	
 	private String placa;
 	private String anotacion;
 	private LocalDateTime fechaEntra;
@@ -10,6 +15,9 @@ public class ActividadEjecutar {
 	private String bono;
 	
 	public ActividadEjecutar(String placa, String anotacion, String tipo, String bono){
+		ValidadorCampos.validarNonNull(placa, PLACA_OBLIGATORIO);
+		ValidadorCampos.validarNonNull(tipo, TPO_OBLIGATORIO);
+		ValidadorCampos.validarNonNull(bono, BONO_OBLIGATORIO);
 		this.fechaEntra = LocalDateTime.now();
 		this.anotacion=anotacion;
 		this.placa=placa;

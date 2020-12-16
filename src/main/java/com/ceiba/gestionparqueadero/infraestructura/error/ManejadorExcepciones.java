@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import com.ceiba.gestionparqueadero.dominio.excepcion.ActividadNoEncontrada;
+import com.ceiba.gestionparqueadero.dominio.excepcion.CampoRequeridoException;
 import com.ceiba.gestionparqueadero.dominio.excepcion.ParqueaderoLlenoException;
 
 @ControllerAdvice
@@ -19,6 +20,7 @@ public class ManejadorExcepciones {
 	public ManejadorExcepciones(){
 		CODIGOS_ESTADO.put(ParqueaderoLlenoException.class.getSimpleName(), HttpStatus.BAD_REQUEST.value());
 		CODIGOS_ESTADO.put(ActividadNoEncontrada.class.getSimpleName(), HttpStatus.BAD_REQUEST.value());
+		CODIGOS_ESTADO.put(CampoRequeridoException.class.getSimpleName(), HttpStatus.BAD_REQUEST.value());
 	}
 	@ExceptionHandler(Exception.class)
 	public final ResponseEntity<Error> handleAllException(Exception exception){
