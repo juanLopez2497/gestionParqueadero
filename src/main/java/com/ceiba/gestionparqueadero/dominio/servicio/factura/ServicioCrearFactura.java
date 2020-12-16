@@ -23,6 +23,10 @@ public class ServicioCrearFactura {
 	private static final int MAX_HOUR=23;
 	private static final int MAX_MINUTE=59;
 	private static final int MINUTOS_TO_HORAS=60;
+	private static final String TIENE_BONO="SI";
+	private static final String CARRO="C";
+	private static final String MOTOCICLETA="M";
+
 	
 	private final FacturaRepository facturaRepository;
 	private final ActividadRepository actividadRepository; 
@@ -44,7 +48,7 @@ public class ServicioCrearFactura {
 		
 		if(validarDiaEntraSale(actividadResumen.getHoraEntra(), facturaInicializar.getFechaSalida())){
 				if(isDomingo(facturaInicializar.getFechaSalida())){
-					if(actividadResumen.getBono()!=null && ("SI").equals(actividadResumen.getBono())){
+					if(actividadResumen.getBono()!=null && (TIENE_BONO).equals(actividadResumen.getBono())){
 						pagoParcial=(pagoParcial-(pagoParcial*PORCENTAJE_AUMENTO_DESC_10));
 					}else{
 						pagoParcial=calcularAumentoEnDomingo(pagoParcial, actividadResumen.getTipo());
@@ -77,9 +81,9 @@ public class ServicioCrearFactura {
 	
 	public double calcularTarifa(double horas,String tipo){
 		double result=0;
-		if("C".equals(tipo)){
+		if(CARRO.equals(tipo)){
 			result=horas*TARIFA_HORA_CARRO;
-		}else if("M".equals(tipo)){
+		}else if(MOTOCICLETA.equals(tipo)){
 			result=horas*TARIFA_HORA_MOTO;
 		}
 		return result;
@@ -132,18 +136,18 @@ public class ServicioCrearFactura {
 		}
 		sobreCosto=(tiempoExtraFirst+tiempoMiddle+tiempoExtraLast);
 		
-		if("C".equals(tipo)){
+		if(CARRO.equals(tipo)){
 			sobreCosto=((sobreCosto)*TARIFA_HORA_CARRO)*PORCENTAJE_AUMENTO_DESC_10;
-		}else if("M".equals(tipo)){
+		}else if(MOTOCICLETA.equals(tipo)){
 			sobreCosto=((sobreCosto)*TARIFA_HORA_MOTO)*PORCENTAJE_AUMENTO_5;
 		}
 		return sobreCosto;
 	}
 	
 	public double calcularAumentoEnDomingo(double pagoParcial, String tipo){
-		if(("C").equals(tipo)){
+		if((CARRO).equals(tipo)){
 			pagoParcial=(pagoParcial+(pagoParcial*PORCENTAJE_AUMENTO_DESC_10));
-		}else if(("M").equals(tipo)){
+		}else if((MOTOCICLETA).equals(tipo)){
 			pagoParcial=(pagoParcial+(pagoParcial*PORCENTAJE_AUMENTO_5));
 		}
 		return pagoParcial;

@@ -30,7 +30,7 @@ public class ControladorFacturaTest {
     public void crearFactura() throws Exception{
     	ComandoGeneracionFactura coomandoInicializaFactura=new FacturaTestDataBuilder().inicializaFactura();
     	mvc.perform( MockMvcRequestBuilders
-                .post("/factura/generarFactura")
+                .post("/factura/facturaPersistente")
                 .content(objectMapper.writeValueAsString(coomandoInicializaFactura))
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
@@ -40,7 +40,7 @@ public class ControladorFacturaTest {
     public void crearFacturaFail() throws Exception{
     	ComandoGeneracionFactura comandoInicializaFacturaFail=new FacturaTestDataBuilder().inicializaFacturaFail();
     	mvc.perform( MockMvcRequestBuilders
-                .post("/factura/generarFactura")
+                .post("/factura/facturaPersistente")
                 .content(objectMapper.writeValueAsString(comandoInicializaFacturaFail))
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
