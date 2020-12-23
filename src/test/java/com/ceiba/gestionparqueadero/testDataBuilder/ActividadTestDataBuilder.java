@@ -5,8 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.ceiba.gestionparqueadero.aplicacion.comando.ComandoRegistroParqueo;
-import com.ceiba.gestionparqueadero.dominio.ActividadEjecutar;
-import com.ceiba.gestionparqueadero.dominio.ActividadResumen;
+import com.ceiba.gestionparqueadero.dominio.dto.ActividadResumenDTO;
+import com.ceiba.gestionparqueadero.dominio.modelo.ActividadEjecutar;
 
 public class ActividadTestDataBuilder {
 	
@@ -18,9 +18,11 @@ public class ActividadTestDataBuilder {
 	private static final String PLACA_DOMINGO="WXZ08C";
 	private static final String ANOTACION="Entra con espejo IZQ roto";
 	private static final String TIPO="M";
+	private static final String TIPO_CARRO="C";
 	private static final String PLACA_NUEVO="WXZ08C";
 	private static final String ANOTACION_NUEVO="Entra con espejo roto";
 	private static final String BONO="NO";
+	private static final String BONO_SI="SI";
 	
 	private Long idActividad;
 	private Long idActividadDom;
@@ -29,11 +31,12 @@ public class ActividadTestDataBuilder {
 	private String placa;
 	private String anotacion;
 	private String tipo;
+	private String tipoCarro;
 	private String placaNuevo;
 	private String placaDom;
 	private String anotacionNuevo;
 	private String bono;
-	
+	private String tieneBono;
 	public ActividadTestDataBuilder(){
 		this.idActividad=ID_ACTIVIDAD;
 		this.horaEntraCadena=HORA_ENTRA_CADENA;
@@ -49,17 +52,29 @@ public class ActividadTestDataBuilder {
 		this.placaDom=PLACA_DOMINGO;
 		this.idActividadDom=ID_ACTIVIDAD_DOM;
 		this.bono=BONO;
+		
+		tipoCarro=TIPO_CARRO;
+		tieneBono=BONO_SI;
 	}
 	
-	public List<ActividadResumen> listActividadesAutomotorActivas(){
-		List<ActividadResumen> lisActResumen = new ArrayList<>();
-		ActividadResumen actividad=new ActividadResumen(this.horaEntraCadena, this.placa, this.anotacion, this.tipo, this.idActividad,this.bono);
+	public List<ActividadResumenDTO> listActividadesAutomotorActivas(){
+		List<ActividadResumenDTO> lisActResumen = new ArrayList<>();
+		ActividadResumenDTO actividad=new ActividadResumenDTO(this.horaEntraCadena, this.placa, this.anotacion, this.tipo, this.idActividad,this.bono);
 		lisActResumen.add(actividad);
 		return lisActResumen;
 	}
 	
-	public ActividadResumen actividadCreada(){
-		ActividadResumen actividad=new ActividadResumen(this.horaEntraCadena, this.placa, this.anotacion, this.tipo, this.idActividad,this.bono);
+	public List<ActividadResumenDTO> listActividadesAutomotorLimiteCupo(){
+		List<ActividadResumenDTO> lisActResumen = new ArrayList<>();
+		ActividadResumenDTO actividad=new ActividadResumenDTO(this.horaEntraCadena, this.placa, this.anotacion, this.tipo, this.idActividad,this.bono);
+		for (int i = 0; i < 4; i++) {
+			lisActResumen.add(actividad);
+		}
+		return lisActResumen;
+	}
+	
+	public ActividadResumenDTO actividadCreada(){
+		ActividadResumenDTO actividad=new ActividadResumenDTO(this.horaEntraCadena, this.placa, this.anotacion, this.tipo, this.idActividad,this.bono);
 		return actividad;
 	}
 	
@@ -70,8 +85,12 @@ public class ActividadTestDataBuilder {
 	public ComandoRegistroParqueo creaActividad(){
 		return new ComandoRegistroParqueo(placaNuevo, anotacionNuevo, tipo,this.bono);
 	}
-	public ActividadResumen actividadCreadaInDomingo(){
-		ActividadResumen actividad=new ActividadResumen(this.horaEntraDomingo, this.placaDom, this.anotacionNuevo, this.tipo, this.idActividadDom,this.bono);
+	public ActividadResumenDTO actividadCreadaInDomingo(){
+		ActividadResumenDTO actividad=new ActividadResumenDTO(this.horaEntraDomingo, this.placaDom, this.anotacionNuevo, this.tipo, this.idActividadDom,this.bono);
+		return actividad;
+	}
+	public ActividadResumenDTO actividadCreadaInDomingoBono(){
+		ActividadResumenDTO actividad=new ActividadResumenDTO(this.horaEntraDomingo, this.placaDom, this.anotacionNuevo, this.tipoCarro, this.idActividadDom,this.tieneBono);
 		return actividad;
 	}
 	public ComandoRegistroParqueo creaActividadFail(){

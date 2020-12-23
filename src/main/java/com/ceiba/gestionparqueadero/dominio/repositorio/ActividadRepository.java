@@ -2,15 +2,15 @@ package com.ceiba.gestionparqueadero.dominio.repositorio;
 
 import java.util.List;
 
-import com.ceiba.gestionparqueadero.dominio.ActividadEjecutar;
-import com.ceiba.gestionparqueadero.dominio.ActividadResumen;
+import com.ceiba.gestionparqueadero.dominio.dto.ActividadResumenDTO;
+import com.ceiba.gestionparqueadero.dominio.modelo.ActividadEjecutar;
 
 public interface ActividadRepository {
 	
-	ActividadResumen agregar(ActividadEjecutar actividad);
+	ActividadResumenDTO agregar(ActividadEjecutar actividad);
 	
-	List<ActividadResumen> listActivas();
+	List<ActividadResumenDTO> listActivas();
 	
-	ActividadResumen buscarById(Long id);
+	ActividadResumenDTO buscarById(Long id);
 
 }

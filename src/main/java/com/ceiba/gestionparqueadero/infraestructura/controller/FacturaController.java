@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ceiba.gestionparqueadero.aplicacion.comando.ComandoGeneracionFactura;
 import com.ceiba.gestionparqueadero.aplicacion.manejadores.factura.ManejadorCrearFactura;
-import com.ceiba.gestionparqueadero.dominio.FacturaResumen;
+import com.ceiba.gestionparqueadero.dominio.dto.FacturaResumenDTO;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
@@ -20,7 +20,7 @@ public class FacturaController {
 	}
 	
 	@PostMapping("/facturaPersistente")
-	public FacturaResumen generarFactura(@RequestBody ComandoGeneracionFactura comandoGeneracionFactura){
+	public FacturaResumenDTO generarFactura(@RequestBody ComandoGeneracionFactura comandoGeneracionFactura){
 		return manejadorCrearFactura.crearFactura(comandoGeneracionFactura);
 	}
 	

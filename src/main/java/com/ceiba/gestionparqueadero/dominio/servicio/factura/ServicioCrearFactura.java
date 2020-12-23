@@ -7,9 +7,9 @@ import java.time.temporal.ChronoUnit;
 
 import org.springframework.stereotype.Component;
 
-import com.ceiba.gestionparqueadero.dominio.ActividadResumen;
-import com.ceiba.gestionparqueadero.dominio.FacturaInicializar;
-import com.ceiba.gestionparqueadero.dominio.FacturaResumen;
+import com.ceiba.gestionparqueadero.dominio.dto.ActividadResumenDTO;
+import com.ceiba.gestionparqueadero.dominio.dto.FacturaResumenDTO;
+import com.ceiba.gestionparqueadero.dominio.modelo.FacturaInicializar;
 import com.ceiba.gestionparqueadero.dominio.repositorio.ActividadRepository;
 import com.ceiba.gestionparqueadero.dominio.repositorio.FacturaRepository;
 
@@ -36,37 +36,47 @@ public class ServicioCrearFactura {
 		this.actividadRepository=actividadRepository;
 	}
 	
-	public FacturaResumen crearFactura(FacturaInicializar facturaInicializar){
-		ActividadResumen actividadResumen=actividadRepository.buscarById(facturaInicializar.getId());
+	public FacturaResumenDTO crearFactura(FacturaInicializar facturaInicializar){
+		ActividadResumenDTO actividadResumen=actividadRepository.buscarById(facturaInicializar.getId());
 		double pagoParcial=0;
-		double totalAumentos=0;
 		double totalAPagar=0;
 
 		double horasTotalesParqueo=calcularHorasTotalesParqueo(actividadResumen.getHoraEntra(), facturaInicializar.getFechaSalida());
 		Long conteoDomingos=contarDomingos(actividadResumen.getHoraEntra(), facturaInicializar.getFechaSalida());
 		pagoParcial=calcularTarifa( horasTotalesParqueo, actividadResumen.getTipo());
 		
+		totalAPagar=calcularCentralizadoPagar(actividadResumen, facturaInicializar, pagoParcial, conteoDomingos);
+		
+		FacturaResumenDTO facturaToPersist= new FacturaResumenDTO(actividadResumen.getIdActRegistro(),
+				actividadResumen.getPlaca(),totalAPagar);
+
+			return facturaRepository.crearRegistro(facturaToPersist);
+	}
+	
+	public double calcularCentralizadoPagar(ActividadResumenDTO actividadResumen,FacturaInicializar facturaInicializar, 
+			double pagoParcial, Long conteoDomingos){
+
+		double totalAumentos=0;
+		double totalAPagar=0;
+		
 		if(validarDiaEntraSale(actividadResumen.getHoraEntra(), facturaInicializar.getFechaSalida())){
-				if(isDomingo(facturaInicializar.getFechaSalida())){
-					if(actividadResumen.getBono()!=null && (TIENE_BONO).equals(actividadResumen.getBono())){
-						pagoParcial=(pagoParcial-(pagoParcial*PORCENTAJE_AUMENTO_DESC_10));
-					}else{
-						pagoParcial=calcularAumentoEnDomingo(pagoParcial, actividadResumen.getTipo());
-					}
+			if(isDomingo(facturaInicializar.getFechaSalida())){
+				if(actividadResumen.getBono()!=null && (TIENE_BONO).equals(actividadResumen.getBono())){
+					pagoParcial=(pagoParcial-(pagoParcial*PORCENTAJE_AUMENTO_DESC_10));
+				}else{
+					pagoParcial=calcularAumentoEnDomingo(pagoParcial, actividadResumen.getTipo());
 				}
+			}	
 		}else{
 			if(conteoDomingos!=0L){
 				totalAumentos=calcularSobreCostoDomingos(actividadResumen.getHoraEntra(), facturaInicializar.getFechaSalida(),conteoDomingos,
 						actividadResumen.getTipo());
 			}
 		}
-		
 		totalAPagar=pagoParcial+totalAumentos;
-		FacturaResumen facturaToPersist= new FacturaResumen(actividadResumen.getIdActRegistro(),
-				actividadResumen.getPlaca(),totalAPagar);
-
-			return facturaRepository.crearRegistro(facturaToPersist);
+		return totalAPagar;
 	}
+	
 	public boolean validarDiaEntraSale(LocalDateTime fechaEntra, LocalDateTime fechaSale){
 		boolean result=false;
 		if(fechaEntra.getDayOfYear()==fechaSale.getDayOfYear()){

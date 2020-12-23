@@ -6,8 +6,8 @@ import org.springframework.stereotype.Component;
 
 import com.ceiba.gestionparqueadero.aplicacion.comando.ComandoRegistroParqueo;
 import com.ceiba.gestionparqueadero.aplicacion.fabrica.FabricaAcividadParqueadero;
-import com.ceiba.gestionparqueadero.dominio.ActividadEjecutar;
-import com.ceiba.gestionparqueadero.dominio.ActividadResumen;
+import com.ceiba.gestionparqueadero.dominio.dto.ActividadResumenDTO;
+import com.ceiba.gestionparqueadero.dominio.modelo.ActividadEjecutar;
 import com.ceiba.gestionparqueadero.dominio.servicio.actividad.ServicioCrearActividadParqueo;
 
 @Component
@@ -23,7 +23,7 @@ public class ManejadorCrearActParqueo {
 	}
 	
 	@Transactional
-	public ActividadResumen crearActividadParqueo(ComandoRegistroParqueo comandoRegistroParqueo){
+	public ActividadResumenDTO crearActividadParqueo(ComandoRegistroParqueo comandoRegistroParqueo){
 		ActividadEjecutar actividadEjecutar=fabricaAcividadParqueadero.crearActividadEjecutar(comandoRegistroParqueo);
 		return servicioCrearActividadParqueo.crearActividadParqueo(actividadEjecutar); 
 	}

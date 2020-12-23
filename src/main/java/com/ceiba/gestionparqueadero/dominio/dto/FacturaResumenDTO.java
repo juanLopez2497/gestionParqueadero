@@ -1,6 +1,6 @@
-package com.ceiba.gestionparqueadero.dominio;
+package com.ceiba.gestionparqueadero.dominio.dto;
 
-public class FacturaResumen {
+public class FacturaResumenDTO {
 	
 	private Long idAct;
 	
@@ -8,7 +8,7 @@ public class FacturaResumen {
 	
 	private double valorPagado;
 	
-	public FacturaResumen(Long idAct, String placa, double valorPagado){
+	public FacturaResumenDTO(Long idAct, String placa, double valorPagado){
 		this.idAct=idAct;
 		this.placa=placa;
 		this.valorPagado=valorPagado;

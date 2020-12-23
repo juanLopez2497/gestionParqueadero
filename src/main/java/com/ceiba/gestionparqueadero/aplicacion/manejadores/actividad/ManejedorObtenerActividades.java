@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Component;
 
-import com.ceiba.gestionparqueadero.dominio.ActividadResumen;
+import com.ceiba.gestionparqueadero.dominio.dto.ActividadResumenDTO;
 import com.ceiba.gestionparqueadero.dominio.servicio.actividad.ServicioObtenerActividadAutomotor;
 
 @Component
@@ -16,7 +16,7 @@ public class ManejedorObtenerActividades {
 		this.servicioObtenerActividadAutomotor=servicioObtenerActividadAutomotor;
 	}
 	
-	public List<ActividadResumen> listActividadesAutomotorActivas(){
+	public List<ActividadResumenDTO> listActividadesAutomotorActivas(){
 		return servicioObtenerActividadAutomotor.listActividadesAutomotorActivas();
 	}
 

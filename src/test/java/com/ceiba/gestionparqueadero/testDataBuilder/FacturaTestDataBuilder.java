@@ -3,8 +3,8 @@ package com.ceiba.gestionparqueadero.testDataBuilder;
 import java.time.LocalDateTime;
 
 import com.ceiba.gestionparqueadero.aplicacion.comando.ComandoGeneracionFactura;
-import com.ceiba.gestionparqueadero.dominio.FacturaInicializar;
-import com.ceiba.gestionparqueadero.dominio.FacturaResumen;
+import com.ceiba.gestionparqueadero.dominio.dto.FacturaResumenDTO;
+import com.ceiba.gestionparqueadero.dominio.modelo.FacturaInicializar;
 
 public class FacturaTestDataBuilder {
 	
@@ -40,7 +40,7 @@ public class FacturaTestDataBuilder {
 	public FacturaInicializar inicFacturaDomingo(){
 		return new FacturaInicializar(idRegActividadDom,horaSaleDomingo);
 	}
-	public FacturaResumen inicFacturaResumenDomingo(){
-		return new FacturaResumen(idRegActividadDom, placaDom, costoDomingo);
+	public FacturaResumenDTO inicFacturaResumenDomingo(){
+		return new FacturaResumenDTO(idRegActividadDom, placaDom, costoDomingo);
 	}
 }

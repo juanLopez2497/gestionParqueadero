@@ -12,8 +12,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-
 
 @Entity(name ="ACTIVIDADES")
 @NamedQuery(name="Actividades.byEstado" , query="SELECT act FROM ACTIVIDADES act WHERE act.estado='A'")
@@ -26,7 +24,6 @@ public class ActividadEntity {
 	private Long id;
 	
 	@Column(name = "HORA_ENTRA")
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
 	private Date horaEntra;
 	
 	@Column(name = "HORA_SALE")
@@ -92,12 +89,6 @@ public class ActividadEntity {
 
 	public void setBono(String bono) {
 		this.bono = bono;
-	}
-
-	@Override
-	public String toString() {
-		return "ActividadEntity [id=" + id + ", horaEntra=" + horaEntra + ", horaSale=" + horaSale
-				+ ", registroAutomotorEntity=" + registroAutomotorEntity + ", estado=" + estado + "]";
 	}
 	
 }

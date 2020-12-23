@@ -11,7 +11,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.ceiba.gestionparqueadero.dominio.ActividadResumen;
+import com.ceiba.gestionparqueadero.dominio.dto.ActividadResumenDTO;
 import com.ceiba.gestionparqueadero.dominio.repositorio.ActividadRepository;
 import com.ceiba.gestionparqueadero.dominio.servicio.actividad.ServicioObtenerActividadAutomotor;
 import com.ceiba.gestionparqueadero.testDataBuilder.ActividadTestDataBuilder;
@@ -26,11 +26,11 @@ public class ObtenerActividadAutomotorTest {
 	
 	@Test
 	public void listActividadesAutomotorActivas(){
-		List<ActividadResumen> listActividades=new ActividadTestDataBuilder().listActividadesAutomotorActivas();
+		List<ActividadResumenDTO> listActividades=new ActividadTestDataBuilder().listActividadesAutomotorActivas();
 		
 		when(actividadRepository.listActivas()).thenReturn(listActividades);
 		
-		List<ActividadResumen> listActividadesReturned=servicioObtenerActividadAutomotor.listActividadesAutomotorActivas();
+		List<ActividadResumenDTO> listActividadesReturned=servicioObtenerActividadAutomotor.listActividadesAutomotorActivas();
 		
 		assertTrue(!listActividadesReturned.isEmpty());
 	}

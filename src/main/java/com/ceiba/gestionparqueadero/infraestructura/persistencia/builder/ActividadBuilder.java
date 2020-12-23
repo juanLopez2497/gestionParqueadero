@@ -5,8 +5,8 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
 
-import com.ceiba.gestionparqueadero.dominio.ActividadEjecutar;
-import com.ceiba.gestionparqueadero.dominio.ActividadResumen;
+import com.ceiba.gestionparqueadero.dominio.dto.ActividadResumenDTO;
+import com.ceiba.gestionparqueadero.dominio.modelo.ActividadEjecutar;
 import com.ceiba.gestionparqueadero.infraestructura.persistencia.entity.ActividadEntity;
 import com.ceiba.gestionparqueadero.infraestructura.persistencia.entity.RegistroAutomotorEntity;
 
@@ -16,8 +16,8 @@ public final class ActividadBuilder {
 		
 	}
 	
-	public static ActividadResumen convertirToActividadDTO(ActividadEntity actividadEntity){
-		return new ActividadResumen(convertDateToLocal(actividadEntity.getHoraEntra()), actividadEntity.getRegistroAutomotorEntity().getPlaca(),
+	public static ActividadResumenDTO convertirToActividadDTO(ActividadEntity actividadEntity){
+		return new ActividadResumenDTO(convertDateToLocal(actividadEntity.getHoraEntra()), actividadEntity.getRegistroAutomotorEntity().getPlaca(),
 				actividadEntity.getRegistroAutomotorEntity().getAnotacion(), actividadEntity.getRegistroAutomotorEntity().getTipo(),
 				actividadEntity.getId(), actividadEntity.getBono());
 	}
@@ -38,16 +38,18 @@ public final class ActividadBuilder {
 		return actividadEntity;
 	}
 	public static Date convertLocalToDate(LocalDateTime toDate){
+		Date dateConverted=null; 
 		if(toDate!=null){
-			return Date.from(toDate.atZone(ZoneId.systemDefault()).toInstant());
+			dateConverted= Date.from(toDate.atZone(ZoneId.systemDefault()).toInstant());
 		}
-		return null;
+		return dateConverted;
 	}
 	
 	public static  LocalDateTime convertDateToLocal(Date toLocal){
+		LocalDateTime dateConverted=null;
 		if(toLocal!=null){
-			return Instant.ofEpochMilli(toLocal.getTime()).atZone(ZoneId.systemDefault()).toLocalDateTime();
+			dateConverted = Instant.ofEpochMilli(toLocal.getTime()).atZone(ZoneId.systemDefault()).toLocalDateTime();
 		}
-		return null;
+		return dateConverted;
 	}
 }

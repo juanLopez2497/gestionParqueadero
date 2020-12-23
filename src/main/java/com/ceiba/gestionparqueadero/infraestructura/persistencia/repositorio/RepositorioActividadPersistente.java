@@ -10,9 +10,9 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Repository;
 
-import com.ceiba.gestionparqueadero.dominio.ActividadEjecutar;
-import com.ceiba.gestionparqueadero.dominio.ActividadResumen;
+import com.ceiba.gestionparqueadero.dominio.dto.ActividadResumenDTO;
 import com.ceiba.gestionparqueadero.dominio.excepcion.ActividadNoEncontrada;
+import com.ceiba.gestionparqueadero.dominio.modelo.ActividadEjecutar;
 import com.ceiba.gestionparqueadero.dominio.repositorio.ActividadRepository;
 import com.ceiba.gestionparqueadero.infraestructura.persistencia.builder.ActividadBuilder;
 import com.ceiba.gestionparqueadero.infraestructura.persistencia.entity.ActividadEntity;
@@ -34,21 +34,21 @@ public class RepositorioActividadPersistente implements ActividadRepository {
 	
 
 	@Override
-	public ActividadResumen agregar(ActividadEjecutar actividad) {
+	public ActividadResumenDTO agregar(ActividadEjecutar actividad) {
 		ActividadEntity actividadEntity=ActividadBuilder.convActividadEjecutarToEntity(actividad);
 		
 		entityManager.persist(actividadEntity);
 		entityManager.flush();
 		LocalDateTime dataConvert=ActividadBuilder.convertDateToLocal(actividadEntity.getHoraEntra());
 		
-		return new ActividadResumen(dataConvert, actividadEntity.getRegistroAutomotorEntity().getPlaca(),
+		return new ActividadResumenDTO(dataConvert, actividadEntity.getRegistroAutomotorEntity().getPlaca(),
 				actividadEntity.getRegistroAutomotorEntity().getAnotacion(), actividadEntity.getRegistroAutomotorEntity().getTipo(),
 				actividadEntity.getId(), actividadEntity.getBono());	
 	}
 
 	@Override
-	public List<ActividadResumen> listActivas() {
-		List<ActividadResumen> listActividadDTO= new ArrayList<>();
+	public List<ActividadResumenDTO> listActivas() {
+		List<ActividadResumenDTO> listActividadDTO= new ArrayList<>();
 		Query queryListActividadesAct=entityManager.createNamedQuery(BUSCA_REGISTROS_ACTIVOS);
 		
 		
@@ -63,7 +63,7 @@ public class RepositorioActividadPersistente implements ActividadRepository {
 
 
 	@Override
-	public ActividadResumen buscarById(Long id) {
+	public ActividadResumenDTO buscarById(Long id) {
 		ActividadEntity actividadEntity=new ActividadEntity();
 		try {
 			Query query=entityManager.createNamedQuery(BUSCA_ACTIVIDAD_POR_ID);

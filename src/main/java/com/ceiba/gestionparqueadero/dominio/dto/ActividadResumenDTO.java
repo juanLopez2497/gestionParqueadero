@@ -1,8 +1,8 @@
-package com.ceiba.gestionparqueadero.dominio;
+package com.ceiba.gestionparqueadero.dominio.dto;
 
 import java.time.LocalDateTime;
 
-public class ActividadResumen {
+public class ActividadResumenDTO {
 	
 	private LocalDateTime horaEntra;
 	
@@ -16,7 +16,7 @@ public class ActividadResumen {
 	
 	private String bono;
 	
-	public ActividadResumen(LocalDateTime horaEntra, String placa, String anotacion, String tipo, 
+	public ActividadResumenDTO(LocalDateTime horaEntra, String placa, String anotacion, String tipo, 
 			Long idActRegistro, String bono) {
 		this.horaEntra=horaEntra;
 		this.placa=placa;

@@ -1,4 +1,4 @@
-package com.ceiba.gestionparqueadero.dominio;
+package com.ceiba.gestionparqueadero.dominio.modelo;
 
 import java.time.LocalDateTime;
 

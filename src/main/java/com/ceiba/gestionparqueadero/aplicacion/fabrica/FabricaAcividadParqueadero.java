@@ -3,7 +3,7 @@ package com.ceiba.gestionparqueadero.aplicacion.fabrica;
 import org.springframework.stereotype.Component;
 
 import com.ceiba.gestionparqueadero.aplicacion.comando.ComandoRegistroParqueo;
-import com.ceiba.gestionparqueadero.dominio.ActividadEjecutar;
+import com.ceiba.gestionparqueadero.dominio.modelo.ActividadEjecutar;
 
 @Component
 public class FabricaAcividadParqueadero {

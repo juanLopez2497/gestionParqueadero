@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ceiba.gestionparqueadero.aplicacion.comando.ComandoRegistroParqueo;
 import com.ceiba.gestionparqueadero.aplicacion.manejadores.actividad.ManejadorCrearActParqueo;
 import com.ceiba.gestionparqueadero.aplicacion.manejadores.actividad.ManejedorObtenerActividades;
-import com.ceiba.gestionparqueadero.dominio.ActividadResumen;
+import com.ceiba.gestionparqueadero.dominio.dto.ActividadResumenDTO;
 
 
 @RestController
@@ -30,11 +30,11 @@ public class ActividadesController {
 	}
 	
 	@GetMapping("/listaActivas")
-	public List<ActividadResumen> getListActividades(){
+	public List<ActividadResumenDTO> getListActividades(){
 		return manejedorObtenerActividades.listActividadesAutomotorActivas();
 	}
 	@PostMapping("/actividadPersistente")
-	public ActividadResumen agregaRegistroActividad(@RequestBody ComandoRegistroParqueo comandoRegistroParqueo){
+	public ActividadResumenDTO agregaRegistroActividad(@RequestBody ComandoRegistroParqueo comandoRegistroParqueo){
 		return manejadorCrearActParqueo.crearActividadParqueo(comandoRegistroParqueo);
 	}
 }

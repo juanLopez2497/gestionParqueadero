@@ -9,9 +9,13 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import com.ceiba.gestionparqueadero.dominio.dto.ActividadResumenDTO;
+import com.ceiba.gestionparqueadero.dominio.modelo.FacturaInicializar;
 import com.ceiba.gestionparqueadero.dominio.repositorio.ActividadRepository;
 import com.ceiba.gestionparqueadero.dominio.repositorio.FacturaRepository;
 import com.ceiba.gestionparqueadero.dominio.servicio.factura.ServicioCrearFactura;
+import com.ceiba.gestionparqueadero.testDataBuilder.ActividadTestDataBuilder;
+import com.ceiba.gestionparqueadero.testDataBuilder.FacturaTestDataBuilder;
 
 
 
@@ -84,15 +88,15 @@ public class FacturaTest {
 	}
 	@Test
 	public void calcularSobreCostoDomingosMotos(){
-		double SobreCostoPrecalculado=700;
+		double sobreCostoPrecalculado=700;
 		double sobreCostoDomingo=servicioCrearFactura.calcularSobreCostoDomingos(HORA_ENTRA, HORA_SALE_DIFERENTE, 1L, "M");
-		assertEquals(sobreCostoDomingo, SobreCostoPrecalculado, 0);
+		assertEquals(sobreCostoDomingo, sobreCostoPrecalculado, 0);
 	}
 	@Test
 	public void calcularSobreCostoDomingosCarros(){
-		double SobreCostoPrecalculado=400;
+		double sobreCostoPrecalculado=400;
 		double sobreCostoDomingo=servicioCrearFactura.calcularSobreCostoDomingos(HORA_ENTRA, HORA_SALE, 1L, "C");
-		assertEquals(SobreCostoPrecalculado, sobreCostoDomingo, 0);
+		assertEquals(sobreCostoPrecalculado, sobreCostoDomingo, 0);
 	}
 	@Test
 	public void calcularAumentoEnDomingoMoto(){
@@ -105,5 +109,31 @@ public class FacturaTest {
 		double expected=2200;
 		double result=servicioCrearFactura.calcularAumentoEnDomingo(2000, "C");
 		assertEquals(expected, result, 0);
+	}
+	
+	@Test
+	public void calcularCentralizadoPagarTest(){
+		ActividadResumenDTO actividadResumen=new ActividadTestDataBuilder().actividadCreadaInDomingo();
+		FacturaInicializar facturaInicializar=new FacturaTestDataBuilder().inicFacturaDomingo();
+		double pagoParcial=1000;
+		double expected=1050;
+		Long conteoDomingos=0L;
+		
+		double result=servicioCrearFactura.calcularCentralizadoPagar(actividadResumen, facturaInicializar, pagoParcial, conteoDomingos);
+		
+		assertEquals(expected, result,0);
+	}
+	
+	@Test
+	public void calcularCentralizadoPagarBonoTest(){
+		ActividadResumenDTO actividadResumen=new ActividadTestDataBuilder().actividadCreadaInDomingoBono();
+		FacturaInicializar facturaInicializar=new FacturaTestDataBuilder().inicFacturaDomingo();
+		double pagoParcial=1000;
+		double expected=900;
+		Long conteoDomingos=0L;
+		
+		double result=servicioCrearFactura.calcularCentralizadoPagar(actividadResumen, facturaInicializar, pagoParcial, conteoDomingos);
+		
+		assertEquals(expected, result,0);
 	}
 }

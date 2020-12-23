@@ -1,8 +1,8 @@
 package com.ceiba.gestionparqueadero.dominio.repositorio;
 
-import com.ceiba.gestionparqueadero.dominio.FacturaResumen;
+import com.ceiba.gestionparqueadero.dominio.dto.FacturaResumenDTO;
 
 public interface FacturaRepository {
-	FacturaResumen crearRegistro(FacturaResumen facturaPersist);
+	FacturaResumenDTO crearRegistro(FacturaResumenDTO facturaPersist);
 
 }
