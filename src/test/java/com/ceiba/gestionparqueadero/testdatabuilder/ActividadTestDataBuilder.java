@@ -105,15 +105,15 @@ public class ActividadTestDataBuilder {
 		return actividad;
 	}
 	public ComandoRegistroParqueo creaActividadFail(){
-		return new ComandoRegistroParqueo(null, anotacionNuevo, tipo,this.bono);
+		return new ComandoRegistroParqueo(null, this.anotacionNuevo, this.tipo,this.bono);
 	}
 	public ComandoRegistroParqueo creaActividadFailPlacaTamano(){
-		return new ComandoRegistroParqueo(placaInvalidaTamano, anotacionNuevo, tipo,this.bono);
+		return new ComandoRegistroParqueo(this.placaInvalidaTamano, this.anotacionNuevo, this.tipo,this.bono);
 	}
 	public ComandoRegistroParqueo creaActividadTipoAutFail(){
-		return new ComandoRegistroParqueo(placaInvalidaTamano, anotacionNuevo, this.tipoIncorrecto,this.bono);
+		return new ComandoRegistroParqueo(this.placaNuevo, this.anotacionNuevo, this.tipoIncorrecto,this.bono);
 	}
 	public ComandoRegistroParqueo creaActividadRespBonoFail(){
-		return new ComandoRegistroParqueo(placaInvalidaTamano, anotacionNuevo, this.tipoIncorrecto,this.tieneBonoFail);
+		return new ComandoRegistroParqueo(this.placaNuevo, this.anotacionNuevo, this.tipo,this.tieneBonoFail);
 	}
 }
