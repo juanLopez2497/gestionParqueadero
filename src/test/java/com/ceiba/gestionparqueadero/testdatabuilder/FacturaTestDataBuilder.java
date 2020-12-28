@@ -1,4 +1,4 @@
-package com.ceiba.gestionparqueadero.testDataBuilder;
+package com.ceiba.gestionparqueadero.testdatabuilder;
 
 import java.time.LocalDateTime;
 

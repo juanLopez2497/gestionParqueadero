@@ -1,6 +1,5 @@
 package com.ceiba.gestionparqueadero.infraestructura.controller;
 
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,15 +10,14 @@ import com.ceiba.gestionparqueadero.aplicacion.manejadores.factura.ManejadorCrea
 import com.ceiba.gestionparqueadero.dominio.dto.FacturaResumenDTO;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:4200")
-@RequestMapping("/factura")
+@RequestMapping("/registros")
 public class FacturaController {
 	private final ManejadorCrearFactura manejadorCrearFactura;
 	public FacturaController(ManejadorCrearFactura manejadorCrearFactura){
 		this.manejadorCrearFactura=manejadorCrearFactura;
 	}
 	
-	@PostMapping("/facturaPersistente")
+	@PostMapping("/facturas")
 	public FacturaResumenDTO generarFactura(@RequestBody ComandoGeneracionFactura comandoGeneracionFactura){
 		return manejadorCrearFactura.crearFactura(comandoGeneracionFactura);
 	}

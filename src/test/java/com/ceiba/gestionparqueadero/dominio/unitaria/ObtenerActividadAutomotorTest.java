@@ -14,7 +14,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import com.ceiba.gestionparqueadero.dominio.dto.ActividadResumenDTO;
 import com.ceiba.gestionparqueadero.dominio.repositorio.ActividadRepository;
 import com.ceiba.gestionparqueadero.dominio.servicio.actividad.ServicioObtenerActividadAutomotor;
-import com.ceiba.gestionparqueadero.testDataBuilder.ActividadTestDataBuilder;
+import com.ceiba.gestionparqueadero.testdatabuilder.ActividadTestDataBuilder;
 
 @RunWith(SpringRunner.class)
 public class ObtenerActividadAutomotorTest {

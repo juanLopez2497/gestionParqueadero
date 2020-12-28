@@ -11,8 +11,8 @@ import com.ceiba.gestionparqueadero.dominio.excepcion.ParqueaderoLlenoException;
 import com.ceiba.gestionparqueadero.dominio.modelo.ActividadEjecutar;
 import com.ceiba.gestionparqueadero.dominio.repositorio.ActividadRepository;
 import com.ceiba.gestionparqueadero.dominio.servicio.actividad.ServicioCrearActividadParqueo;
+import com.ceiba.gestionparqueadero.testdatabuilder.ActividadTestDataBuilder;
 
-import com.ceiba.gestionparqueadero.testDataBuilder.ActividadTestDataBuilder;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.when;
 

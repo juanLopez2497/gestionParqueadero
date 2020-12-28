@@ -1,4 +1,4 @@
-package com.ceiba.gestionparqueadero.testDataBuilder;
+package com.ceiba.gestionparqueadero.testdatabuilder;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -18,25 +18,32 @@ public class ActividadTestDataBuilder {
 	private static final String PLACA_DOMINGO="WXZ08C";
 	private static final String ANOTACION="Entra con espejo IZQ roto";
 	private static final String TIPO="M";
+	private static final String TIPO_INCORRECTO="T";
 	private static final String TIPO_CARRO="C";
 	private static final String PLACA_NUEVO="WXZ08C";
 	private static final String ANOTACION_NUEVO="Entra con espejo roto";
 	private static final String BONO="NO";
 	private static final String BONO_SI="SI";
+	private static final String BONO_FAIL="sn";
+	private static final String PLACA_INVALID_TAMANO="WXZZZ09C";
 	
 	private Long idActividad;
 	private Long idActividadDom;
 	private LocalDateTime horaEntraCadena;
 	private LocalDateTime horaEntraDomingo;
 	private String placa;
+	private String placaInvalidaTamano;
 	private String anotacion;
 	private String tipo;
+	private String tipoIncorrecto;
 	private String tipoCarro;
 	private String placaNuevo;
 	private String placaDom;
 	private String anotacionNuevo;
 	private String bono;
 	private String tieneBono;
+	private String tieneBonoFail;
+	
 	public ActividadTestDataBuilder(){
 		this.idActividad=ID_ACTIVIDAD;
 		this.horaEntraCadena=HORA_ENTRA_CADENA;
@@ -53,8 +60,12 @@ public class ActividadTestDataBuilder {
 		this.idActividadDom=ID_ACTIVIDAD_DOM;
 		this.bono=BONO;
 		
-		tipoCarro=TIPO_CARRO;
-		tieneBono=BONO_SI;
+		this.tipoCarro=TIPO_CARRO;
+		this.tieneBono=BONO_SI;
+		this.placaInvalidaTamano=PLACA_INVALID_TAMANO;
+		
+		this.tipoIncorrecto=TIPO_INCORRECTO;
+		this.tieneBonoFail=BONO_FAIL;
 	}
 	
 	public List<ActividadResumenDTO> listActividadesAutomotorActivas(){
@@ -95,5 +106,14 @@ public class ActividadTestDataBuilder {
 	}
 	public ComandoRegistroParqueo creaActividadFail(){
 		return new ComandoRegistroParqueo(null, anotacionNuevo, tipo,this.bono);
+	}
+	public ComandoRegistroParqueo creaActividadFailPlacaTamano(){
+		return new ComandoRegistroParqueo(placaInvalidaTamano, anotacionNuevo, tipo,this.bono);
+	}
+	public ComandoRegistroParqueo creaActividadTipoAutFail(){
+		return new ComandoRegistroParqueo(placaInvalidaTamano, anotacionNuevo, this.tipoIncorrecto,this.bono);
+	}
+	public ComandoRegistroParqueo creaActividadRespBonoFail(){
+		return new ComandoRegistroParqueo(placaInvalidaTamano, anotacionNuevo, this.tipoIncorrecto,this.tieneBonoFail);
 	}
 }

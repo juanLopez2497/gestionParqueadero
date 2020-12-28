@@ -13,7 +13,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import com.ceiba.gestionparqueadero.aplicacion.comando.ComandoGeneracionFactura;
-import com.ceiba.gestionparqueadero.testDataBuilder.FacturaTestDataBuilder;
+import com.ceiba.gestionparqueadero.testdatabuilder.FacturaTestDataBuilder;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @RunWith(SpringRunner.class)
@@ -30,7 +30,7 @@ public class ControladorFacturaTest {
     public void crearFactura() throws Exception{
     	ComandoGeneracionFactura coomandoInicializaFactura=new FacturaTestDataBuilder().inicializaFactura();
     	mvc.perform( MockMvcRequestBuilders
-                .post("/factura/facturaPersistente")
+                .post("/registros/facturas")
                 .content(objectMapper.writeValueAsString(coomandoInicializaFactura))
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
@@ -40,7 +40,7 @@ public class ControladorFacturaTest {
     public void crearFacturaFail() throws Exception{
     	ComandoGeneracionFactura comandoInicializaFacturaFail=new FacturaTestDataBuilder().inicializaFacturaFail();
     	mvc.perform( MockMvcRequestBuilders
-                .post("/factura/facturaPersistente")
+                .post("/registros/facturas")
                 .content(objectMapper.writeValueAsString(comandoInicializaFacturaFail))
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))

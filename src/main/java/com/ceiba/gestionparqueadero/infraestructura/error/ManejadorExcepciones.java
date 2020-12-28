@@ -10,6 +10,9 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import com.ceiba.gestionparqueadero.dominio.excepcion.ActividadNoEncontrada;
 import com.ceiba.gestionparqueadero.dominio.excepcion.CampoRequeridoException;
 import com.ceiba.gestionparqueadero.dominio.excepcion.ParqueaderoLlenoException;
+import com.ceiba.gestionparqueadero.dominio.excepcion.RespBonoIncorrectoException;
+import com.ceiba.gestionparqueadero.dominio.excepcion.TamanoExcedidoException;
+import com.ceiba.gestionparqueadero.dominio.excepcion.TipoAutoIncorrectoException;
 
 @ControllerAdvice
 public class ManejadorExcepciones {
@@ -21,6 +24,9 @@ public class ManejadorExcepciones {
 		CODIGOS_ESTADO.put(ParqueaderoLlenoException.class.getSimpleName(), HttpStatus.BAD_REQUEST.value());
 		CODIGOS_ESTADO.put(ActividadNoEncontrada.class.getSimpleName(), HttpStatus.BAD_REQUEST.value());
 		CODIGOS_ESTADO.put(CampoRequeridoException.class.getSimpleName(), HttpStatus.BAD_REQUEST.value());
+		CODIGOS_ESTADO.put(TamanoExcedidoException.class.getSimpleName(), HttpStatus.BAD_REQUEST.value());
+		CODIGOS_ESTADO.put(TipoAutoIncorrectoException.class.getSimpleName(), HttpStatus.BAD_REQUEST.value());
+		CODIGOS_ESTADO.put(RespBonoIncorrectoException.class.getSimpleName(), HttpStatus.BAD_REQUEST.value());
 	}
 	@ExceptionHandler(Exception.class)
 	public final ResponseEntity<Error> handleAllException(Exception exception){

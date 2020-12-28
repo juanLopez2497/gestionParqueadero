@@ -2,7 +2,6 @@ package com.ceiba.gestionparqueadero.infraestructura.controller;
 
 import java.util.List;
 
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,8 +15,7 @@ import com.ceiba.gestionparqueadero.dominio.dto.ActividadResumenDTO;
 
 
 @RestController
-@CrossOrigin(origins = "http://localhost:4200")
-@RequestMapping("/actividades")
+@RequestMapping("/registros")
 public class ActividadesController {
 	private final ManejedorObtenerActividades manejedorObtenerActividades;
 	private final ManejadorCrearActParqueo manejadorCrearActParqueo;
@@ -29,11 +27,11 @@ public class ActividadesController {
 		this.manejadorCrearActParqueo=manejadorCrearActParqueo;
 	}
 	
-	@GetMapping("/listaActivas")
+	@GetMapping("/historicos")
 	public List<ActividadResumenDTO> getListActividades(){
 		return manejedorObtenerActividades.listActividadesAutomotorActivas();
 	}
-	@PostMapping("/actividadPersistente")
+	@PostMapping("/actividades")
 	public ActividadResumenDTO agregaRegistroActividad(@RequestBody ComandoRegistroParqueo comandoRegistroParqueo){
 		return manejadorCrearActParqueo.crearActividadParqueo(comandoRegistroParqueo);
 	}
